@@ -1,0 +1,9 @@
+============ INSTALL ===========
+
+cd build
+./configure
+make 
+
+it creates executable "jimage" in build/src directory
+run:
+./jimage pathToDirectoryWhereImagesReside

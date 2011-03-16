@@ -1,0 +1,11 @@
+build/CMakeCache.txt
+build/CMakeFiles
+build/CMakeFiles/**/*
+build/Makefile
+build/cmake_install.cmake
+build/src
+build/src/**/*
+build/json
+build/json/**/*
+src/tags
+src/*.swp
