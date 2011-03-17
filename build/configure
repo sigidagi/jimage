@@ -6,7 +6,7 @@ check_cmake()
   {
   (cmake --version) </dev/null >/dev/null 2>&1 ||
     {
-    echo "error: cmake 2.6 must be present to configure and install fotodk"
+    echo "error: cmake 2.6 must be present to configure and create executable \"jimage\""
     echo ""
     echo "cmake might be available as a package for your system,"
     echo "or can be downloaded from http://cmake.org"
