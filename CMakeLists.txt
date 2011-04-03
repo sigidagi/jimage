@@ -29,7 +29,8 @@ find_program(EXIFTOOL_PROGRAM
 if(EXIFTOOL_PROGRAM)
     message(STATUS "Found " ${EXIFTOOL_PROGRAM})
 else(EXIFTOOL_PROGRAM)
-    message(FATAL_ERROR "Can NOT find Exiftool. program needs for parsing header of images.")
+    message(FATAL_ERROR "Can NOT find Exiftool. program needs for parsing header of images. Install
+    'libimage-exiftool-perl".)
 endif()
 
 add_subdirectory(json)
