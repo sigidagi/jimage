@@ -23,7 +23,6 @@
 #include	<sstream>
 #include	<iterator>
 #include	<boost/filesystem.hpp>
-//#include	<boost/foreach.hpp>
 #include	<boost/progress.hpp>
 #include	<fstream>
 
@@ -34,6 +33,27 @@ using std::string;
 using std::vector;
 
 namespace jimage {
+
+    string stripToExtension(const string& pathToFile)
+    {
+
+        string extensionName;
+        string::size_type idx = pathToFile.rfind('.');
+    	if (idx != string::npos)
+    	{
+            extensionName = pathToFile.substr(idx+1, string::npos);
+    	}
+
+        return extensionName;
+    }
+
+    void removeWhitespace(string& str)
+    {
+        size_t found;
+        found = str.find_last_not_of(' ');
+        if (found != string::npos)
+            str.erase(found + 1);
+    }
 
         string  ImageInfo::fileExtension(const string& pathToFile)
         {
@@ -54,7 +74,8 @@ namespace jimage {
             std::ifstream fileStream;
             std::stringstream ss;
             string line, cell1, cell2;
-            
+            msdata_data image_info;
+
             fileStream.open("tempFile", std::ios::in);
             if (fileStream.is_open())
             {
@@ -64,6 +85,25 @@ namespace jimage {
                     ss << line;
                     getline(ss, cell1, ':');
                     getline(ss, cell2, ':');
+                    
+                    removeWhitespace(cell1);
+                    
+                    if (cell1 == "File Name")
+                    {
+                        removeWhitespace(cell2);
+                        memcpy(image_info.fname, cell2.c_str(), cell2.size()+1);
+                    }
+                    if (cell1 == "File Size")
+                    {
+                        removeWhitespace(cell2);
+                        memcpy(image_info.fsize, cell2.c_str(), cell2.size()+1);
+                    }
+                    if (cell1 == "Image Size")
+                    {
+                        removeWhitespace(cell2);
+                        memcpy(image_info.isize, cell2.c_str(), cell2.size()+1);
+                    }
+
                     obj.push_back( json_spirit::Pair(cell1, cell2) ); 
                     ss.clear();
                     ss.str("");
@@ -71,6 +111,8 @@ namespace jimage {
                 
                 fileStream.close();
             }
+            
+            infos_.push_back(image_info);
         }
         
         Object& ImageInfo::addChild(Array& parent)
@@ -99,12 +141,17 @@ namespace jimage {
                 }
                 
                 vector<string> files;
+                string fileext;
                 typedef boost::filesystem::directory_iterator dir_iter;
                 
                 for (dir_iter it(pathTo); it != dir_iter(); ++it)
                 {
                     if (boost::filesystem::is_regular_file(it->status()) )
-                        files.push_back(it->path().filename());
+                    {
+                        fileext = stripToExtension(it->path().filename());
+                        if (fileext == "jpg" || fileext == "JPG")
+                            files.push_back(it->path().filename());
+                    }
                 }
 
                 if (files.empty())
@@ -134,7 +181,11 @@ namespace jimage {
 
             return root_;
         } // function getIt end;
-
+        
+        vector<msdata_data>& ImageInfo::getInfo()
+        {
+            return infos_;
+        }
 
 } // namespace foto 
 

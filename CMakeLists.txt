@@ -11,12 +11,12 @@ message(STATUS "Configuring jimage cmake_source_dir  = ${CMAKE_SOURCE_DIR}")
 
 project(JIMAGE CXX)
 
-#set(CMAKE_CXX_FLAGS "-g -Wall")
+set(CMAKE_CXX_FLAGS "-g -Wall")
 
 #set(Boost_USE_STATIC_LIBS ON)
 # when components are found these variables ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSYTEM_LIBRARY}
 # and ${Boost_LIBRARIES} are filed with values. If components ate not defined - variables are EMPTY!
-find_package(Boost 1.34 COMPONENTS system filesystem REQUIRED)
+find_package(Boost 1.34 COMPONENTS system filesystem thread REQUIRED)
 message(STATUS "boost_libraries " ${Boost_LIBRARIES})
 
 #message(STATUS "boost_filesysytem_library " ${Boost_FILESYSTEM_LIBRARY})
@@ -33,4 +33,5 @@ else(EXIFTOOL_PROGRAM)
 endif()
 
 add_subdirectory(json)
-add_subdirectory(src)
+add_subdirectory(src/server)
+add_subdirectory(src/client)
