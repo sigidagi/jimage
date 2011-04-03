@@ -11,7 +11,7 @@ message(STATUS "Configuring jimage cmake_source_dir  = ${CMAKE_SOURCE_DIR}")
 
 project(JIMAGE CXX)
 
-set(CMAKE_CXX_FLAGS "-g -Wall")
+set(CMAKE_CXX_FLAGS "-g -Wall -pthread")
 
 #set(Boost_USE_STATIC_LIBS ON)
 # when components are found these variables ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSYTEM_LIBRARY}
