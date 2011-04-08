@@ -9,3 +9,4 @@ build/json
 build/json/**/*
 src/tags
 src/*.swp
+images/tempFile

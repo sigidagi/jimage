@@ -91,17 +91,17 @@ namespace jimage {
                     if (cell1 == "File Name")
                     {
                         removeWhitespace(cell2);
-                        memcpy(image_info.fname, cell2.c_str(), cell2.size()+1);
+                        image_info.fname = cell2;
                     }
                     if (cell1 == "File Size")
                     {
-                        removeWhitespace(cell2);
-                        memcpy(image_info.fsize, cell2.c_str(), cell2.size()+1);
+                         removeWhitespace(cell2);
+                         image_info.fsize = cell2;
                     }
                     if (cell1 == "Image Size")
                     {
                         removeWhitespace(cell2);
-                        memcpy(image_info.isize, cell2.c_str(), cell2.size()+1);
+                        image_info.isize = cell2;
                     }
 
                     obj.push_back( json_spirit::Pair(cell1, cell2) ); 

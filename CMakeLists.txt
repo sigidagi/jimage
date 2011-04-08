@@ -16,7 +16,7 @@ set(CMAKE_CXX_FLAGS "-g -Wall -pthread")
 #set(Boost_USE_STATIC_LIBS ON)
 # when components are found these variables ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSYTEM_LIBRARY}
 # and ${Boost_LIBRARIES} are filed with values. If components ate not defined - variables are EMPTY!
-find_package(Boost 1.34 COMPONENTS system filesystem thread REQUIRED)
+find_package(Boost 1.34 COMPONENTS system filesystem thread serialization REQUIRED)
 message(STATUS "boost_libraries " ${Boost_LIBRARIES})
 
 #message(STATUS "boost_filesysytem_library " ${Boost_FILESYSTEM_LIBRARY})
